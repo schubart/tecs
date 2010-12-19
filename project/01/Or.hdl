@@ -1,0 +1,14 @@
+/**
+ * Or gate. out = a or b
+ */
+
+CHIP Or {
+
+    IN  a, b;
+    OUT out;
+
+    PARTS:
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    Nand(a=notA, b=notB, out=out);
+}

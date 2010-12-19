@@ -1,0 +1,15 @@
+/**
+ * Demultiplexer. If sel = 0 then {a = in; b = 0} else {a = 0; b = in}
+ */
+
+CHIP DMux {
+
+    IN  in, sel;
+    OUT a, b;
+
+    PARTS:
+    Not(in=sel, out=notSel);
+    And(a=in, b=notSel, out=a);
+    And(a=in, b=sel, out=b);
+}
+
