@@ -1,0 +1,17 @@
+/**
+ * Full adder. Computes sum, the least significant bit ofd
+ * a + b + c, and carry, the most significant bit of a + b + c.
+ */
+
+CHIP FullAdder {
+
+    IN  a, b, c;
+    OUT sum,     // LSB of a + b + c
+        carry;   // MSB of a + b + c
+
+    PARTS:
+    HalfAdder(a=a, b=b, sum=sumAB, carry=carryAB);
+    HalfAdder(a=sumAB, b=c, sum=sum, carry=carryABC);
+    Or(a=carryAB, b=carryABC, out= carry);
+}
+

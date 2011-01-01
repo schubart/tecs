@@ -1,0 +1,15 @@
+/**
+ * Half adder. Computes sum, the least significnat bit of a + b,
+ * and carry, the most significnat bit of a + b.
+ */
+
+CHIP HalfAdder {
+
+    IN  a, b;
+    OUT sum,   // LSB of a + b
+        carry; // MSB of a + b
+
+    PARTS:
+    And(a=a, b=b, out=carry);
+    Xor(a=a, b=b, out=sum);
+}
