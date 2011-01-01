@@ -1,0 +1,18 @@
+/**
+ * 1-bit memory register.
+ * If load[t-1]=1 then out[t] = in[t-1]
+ * else out does not change (out[t] = out[t-1])
+ */
+
+CHIP Bit {
+
+    IN  in, load;
+    OUT out;
+
+    PARTS:
+
+    // in or previous out.
+    Mux(a=previousOut, b=in, sel=load, out=nextOut);
+    // Store state.
+    DFF(in=nextOut, out=out, out=previousOut);
+}

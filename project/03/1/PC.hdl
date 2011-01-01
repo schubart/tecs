@@ -1,0 +1,43 @@
+/**
+ * 16-bit counter with load and reset controls.
+ *
+ * If reset(t-1) then out(t) = 0
+ *    else if load(t-1) then out(t) = in(t-1)
+ *         else if inc(t-1) then out(t) = out(t-1) + 1 (integer addition)
+ *              else out(t) = out(t-1)
+ */
+
+CHIP PC {
+
+    IN  in[16], load, inc, reset;
+    OUT out[16];
+
+    PARTS:
+
+    // Implement inc.
+    Inc16(in=previousOut, out=incOut);
+
+    // Implement load.
+    Mux16(a=incOut,
+          b=in,
+          sel=load,
+          out=loadOut);
+
+    // Implement reset.
+    Mux16(a=loadOut,
+          b=false,
+          sel=reset,
+          out=resetOut);
+
+    // Test if any of the 3 controls are true, i.e. if the register
+    // needs to be updated.
+    Or8Way(in[0]=load,
+           in[1]=inc,
+           in[2]=reset,
+           out=update);
+
+    // Store the current value.
+    Register(in=resetOut,
+             load=update,
+             out=out, out=previousOut);
+}
