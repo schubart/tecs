@@ -40,7 +40,7 @@
 
         D=D-1   // D--
         @WHITE
-        D;JGE   // Loop to black until D is negative.
+        D;JGE   // Loop to WHITE until D is negative.
 
 // Start over.
 
